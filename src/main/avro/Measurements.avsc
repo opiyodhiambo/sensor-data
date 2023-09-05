@@ -1,0 +1,19 @@
+{
+  "namespace": "sensordata",
+  "type": "record",
+  "name": "Measurements",
+  "fields":[
+      {
+        "name": "power",
+        "type": "double"
+      },
+      {
+        "name": "rotorspeed",
+        "type": "double"
+      },
+      {
+        "name": "windspeed",
+        "type": "double"
+      }
+  ]
+}

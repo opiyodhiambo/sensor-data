@@ -1,0 +1,5 @@
+{
+  "namespace": "sensordata",
+  "type": "record",
+  "name": "Metric"
+}
