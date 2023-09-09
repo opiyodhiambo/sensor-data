@@ -7,6 +7,9 @@ import scala.util.Try
 
 import spray.json._
 
+case class SensorData(deviceId: UUID, timestamp: Instant, measurements: Measurements)
+case class Measurements
+
 trait UUIDJsonSupport extends DefaultJsonProtocol {
   implicit object UUIDFormat extends JsonFormat[UUID] {
     def write(uuid: UUID) = JsString(uuid.toString)
