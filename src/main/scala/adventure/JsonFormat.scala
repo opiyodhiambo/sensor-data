@@ -37,4 +37,4 @@ object SensorDataJsonSupport extends DefaultJsonProtocol with UUIDJsonSupport wi
   import MeasurementsJsonSupport._
   implicit val sensorDataFormat = jsonFormat3(SensorData.apply)
 }
-//end::code[]
+
