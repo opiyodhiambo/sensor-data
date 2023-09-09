@@ -8,7 +8,7 @@ import scala.util.Try
 import spray.json._
 
 case class SensorData(deviceId: UUID, timestamp: Instant, measurements: Measurements)
-case class Measurements
+case class Measurements(power: Double, rotorSpeed: Double, windspeed: Double)
 
 trait UUIDJsonSupport extends DefaultJsonProtocol {
   implicit object UUIDFormat extends JsonFormat[UUID] {
