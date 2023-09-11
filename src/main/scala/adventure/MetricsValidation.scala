@@ -10,8 +10,8 @@ import cloudflow.akkastream.util.scaladsl.Splitter
 
 class MetricsValidation extends AkkaStreamlet {
   val in: CodecInlet[Metric] = AvroInlet[Metric]("in")
-  val valid: CodecOutlet[InvalidMetric] = AvroInlet[Metric].withPartitioner(RoundRobinPartitioner)
-  val invalid: CodecOutlet[Metric] = AvroInlet[InvalidMetric].withPartitioner(metric => metric.metric.deviceId.toString)
+  val valid: CodecOutlet[InvalidMetric] = AvroOutlet[Metric].withPartitioner(RoundRobinPartitioner)
+  val invalid: CodecOutlet[Metric] = AvroOutlet[InvalidMetric].withPartitioner(metric => metric.metric.deviceId.toString)
 
   override val shape: StreamletShape = StreamletShape(in).withOutlets(valid, invalid)
 
