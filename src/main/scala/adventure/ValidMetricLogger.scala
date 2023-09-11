@@ -5,15 +5,26 @@ import cloudflow.streamlets.StreamletShape
 import cloudflow.streamlets.ConfigParameter
 import cloudflow.akkastream.AkkaStreamletLogic
 import cloudflow.streamlets.CodecInlet
+import cloudflow.streamlets.RegExpConfigParameter
+import cloudflow.streamlets.StringConfigParameter
 
 class ValidMetricLogger extends AkkaStreamlet {
   // Defining the inlet  
   val inlet: CodecInlet[Metric] = AvroInlet[Metric]("in")
-  // Defining the shalep of the streamlet
+  // Defining the shape of the streamlet
   override val shape: StreamletShape = StreamletShape.withInlets(inlet)
-
-  val logLevel = ???
-  val MsgPrefix = ???
+ // Defining the log configs for the streamlet
+  val logLevel = RegExpConfigParameter(
+    "log-level",
+    "provide the following log levels, debug, info, warning or error",
+    "^debug|info|warning|error$",
+    Some("debug")
+    )
+  val MsgPrefix = StringConfigParameter(
+    "msg-prefix",
+    "Provide a prefix for the log lines",
+    Some("valid-logger")
+    )
 
   override def configParameters: IndexedSeq[ConfigParameter] = ???
 

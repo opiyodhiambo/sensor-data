@@ -11,7 +11,7 @@ import spray.json._
 
 case class SensorData(deviceId: UUID, timestamp: Instant, measurements: Measurements) extends SpecificRecordBase {
   val schema: Schema = AvroSchema[SensorData]
-  cal schemaJson: String = schema.toString
+  val schemaJson: String = schema.toString
 
   def get(field: Int): Object = field match {
     case 0 => deviceId.asInstanceOf[AnyRef]
@@ -54,4 +54,3 @@ object SensorDataJsonSupport extends DefaultJsonProtocol with UUIDJsonSupport wi
   import MeasurementsJsonSupport._
   implicit val sensorDataFormat = jsonFormat3(SensorData.apply)
 }
-q9pn2c5
