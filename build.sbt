@@ -1,12 +1,3 @@
-''// Specify the source directory where Avro schemas are located
-sourceDirectory in AvrohuggerConfigure := (sourceDirectory.value / "main" / "avro").value
-
-// Specify the output directory where generated Scala case classes will be placed
-target := sourceManaged.value / "avro"
-
-// Enable generation of Scala case classes from Avro schema files
-sourceGenerators in Compile += avroScalaGenerateTask(avroConfigOptions, avroScalaCustomTypes)
-
 lazy val sensorData =  (project in file("."))
     .enablePlugins(CloudflowApplicationPlugin, CloudflowAkkaPlugin)
     .settings(
