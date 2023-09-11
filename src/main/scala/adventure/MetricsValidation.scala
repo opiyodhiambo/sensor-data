@@ -18,7 +18,7 @@ class MetricsValidation extends AkkaStreamlet {
   def flow = {
     FlowWithCommittableContext[Metric]()
       .map{metric =>
-        if (!SensorDataUtils.isInvalidMetric(metric)) Left(InvalidMetric(metric, "All measurements have to be positive"))
+        if (!SensorDataUtils.isValidMetric(metric)) Left(InvalidMetric(metric, "All measurements have to be positive"))
         else Right(metric)
       
     }
