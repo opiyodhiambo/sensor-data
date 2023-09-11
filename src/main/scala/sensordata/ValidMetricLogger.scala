@@ -8,7 +8,7 @@ import cloudflow.streamlets.avro._
 
 class ValidMetricLogger extends AkkaStreamlet {
 
-  val inlet: CodecInlet[Metric]      = AvroInlet[Metric]("in")
+  val inlet: CodecInlet[Metric] = AvroInlet[Metric]("in")
   override val shape: StreamletShape = StreamletShape.withInlets(inlet)
 
   val LogLevel = RegExpConfigParameter(
@@ -18,31 +18,36 @@ class ValidMetricLogger extends AkkaStreamlet {
     Some("debug")
   )
 
-  val MsgPrefix = StringConfigParameter("msg-prefix", "Provide a prefix for the log lines", Some("valid-logger"))
+  val MsgPrefix = StringConfigParameter(
+    "msg-prefix",
+    "Provide a prefix for the log lines",
+    Some("valid-logger")
+  )
 
   override def configParameters = Vector(LogLevel, MsgPrefix)
 
-  override def createLogic(): AkkaStreamletLogic = new RunnableGraphStreamletLogic() {
-    val logF: String => Unit = LogLevel.value.toLowerCase match {
-      case "debug"   => system.log.debug _
-      case "info"    => system.log.info _
-      case "warning" => system.log.warning _
-      case "error"   => system.log.error _
+  override def createLogic(): AkkaStreamletLogic =
+    new RunnableGraphStreamletLogic() {
+      val logF: String => Unit = LogLevel.value.toLowerCase match {
+        case "debug"   => system.log.debug _
+        case "info"    => system.log.info _
+        case "warning" => system.log.warning _
+        case "error"   => system.log.error _
+      }
+
+      val msgPrefix = MsgPrefix.value
+
+      def log(metric: Metric): Unit =
+        logF(s"$msgPrefix $metric")
+
+      def flow =
+        FlowWithCommittableContext[Metric]()
+          .map { validMetric =>
+            log(validMetric)
+            validMetric
+          }
+
+      override def runnableGraph(): RunnableGraph[_] =
+        sourceWithCommittableContext(inlet).via(flow).to(committableSink)
     }
-
-    val msgPrefix = MsgPrefix.value
-
-    def log(metric: Metric): Unit =
-      logF(s"$msgPrefix $metric")
-
-    def flow =
-      FlowWithCommittableContext[Metric]()
-        .map { validMetric =>
-          log(validMetric)
-          validMetric
-        }
-
-    override def runnableGraph(): RunnableGraph[_] =
-      sourceWithCommittableContext(inlet).via(flow).to(committableSink)
-  }
 }

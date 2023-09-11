@@ -5,7 +5,7 @@ import cloudflow.akkastream._
 import cloudflow.akkastream.scaladsl._
 import cloudflow.streamlets._
 import cloudflow.streamlets.avro._
-
+ 
 class SensorDataToMetrics extends AkkaStreamlet {
   val in: CodecInlet[SensorData]     = AvroInlet[SensorData]("in")
   val out: CodecOutlet[Metric]       = AvroOutlet[Metric]("out").withPartitioner(RoundRobinPartitioner)
