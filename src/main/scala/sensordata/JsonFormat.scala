@@ -2,10 +2,8 @@ package sensordata
 
 import java.time.Instant
 import java.util.UUID
-import org.apache.avro.specific.SpecificRecordBase 
-import org.apache.avro.{Schema, AvroRuntimeException}
+
 import scala.util.Try
-import com.sksamuel.avro4s.AvroSchema
 
 import spray.json._
 
