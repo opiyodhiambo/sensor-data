@@ -1,7 +1,7 @@
 {
     "namespace": "sensordata",
     "type": "record",
-    "name": "SensorData",
+    "name": "Metric",
     "fields":[
          {
             "name": "deviceId",
@@ -18,7 +18,10 @@
             }
          },
          {
-            "name": "measurements", "type": "sensordata.Measurements"
+            "name": "name", "type": "string"
+         },
+         {
+            "name": "value", "type": "double"
          }
     ]
 }
