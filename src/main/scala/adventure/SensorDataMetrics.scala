@@ -21,7 +21,7 @@ class SensorDataMetrics extends AkkaStreamlet {
       
     }
   }
-  override protected def createLogic(): AkkaStreamletLogic = {
-    override def runnableGraph[_] = ???
+  override protected def createLogic(): AkkaStreamletLogic = new RunnableGraphStreamletLogic() {
+    override def runnableGraph[_] = sourceWithCommittableContext(in).via(flow).to(committableSink(out))
   }
 }
