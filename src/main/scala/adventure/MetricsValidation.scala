@@ -2,11 +2,12 @@ package adventure
 
 import cloudflow.akkastream._
 import cloudflow.streamlets._
+import cloudflow.streamlets.avro.AvroInlet
 
 class MetricsValidation extends AkkaStreamlet {
-  val in: CodecInlet[Metric] = ???
-  val valid: CodecOutlet[InvalidMetric] = ???
-  val invalid: CodecOutlet[Metric] = ???
+  val in: CodecInlet[Metric] = AvroInlet[Metric]("in")
+  val valid: CodecOutlet[InvalidMetric] = AvroInlet[Metric].withPartitioner(RoundRobinPartitioner)
+  val invalid: CodecOutlet[Metric] = AvroInlet[InvalidMetric].withPartitioner(metric => metric.metric.deviceId.toString)
 
   override val shape: StreamletShape = ???
 
