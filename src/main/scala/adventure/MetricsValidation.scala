@@ -9,7 +9,7 @@ class MetricsValidation extends AkkaStreamlet {
   val valid: CodecOutlet[InvalidMetric] = AvroInlet[Metric].withPartitioner(RoundRobinPartitioner)
   val invalid: CodecOutlet[Metric] = AvroInlet[InvalidMetric].withPartitioner(metric => metric.metric.deviceId.toString)
 
-  override val shape: StreamletShape = ???
+  override val shape: StreamletShape = StreamletShape(in).withOutlets(valid, invalid)
 
   def flow = ???
   override protected def createLogic(): AkkaStreamletLogic = ???
