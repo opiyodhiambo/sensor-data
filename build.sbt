@@ -13,7 +13,9 @@ lazy val sensorData = (project in file("."))
 
     libraryDependencies ++= Seq(
       Cloudflow.library.CloudflowAvro,
+      "org.apache.avro" % "avro" % "1.10.2",
       "com.lightbend.akka" %% "akka-stream-alpakka-file" % "1.1.2",
+      "com.sksamuel.avro4s" %% "avro4s-core" % "4.0.4",
       "com.lightbend.cloudflow" %% "cloudflow-akka" % "2.3.2",
       "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.12",
       "ch.qos.logback" % "logback-classic" % "1.2.11",
