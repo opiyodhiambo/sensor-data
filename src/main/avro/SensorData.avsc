@@ -13,7 +13,7 @@
       {
         "name": "timestamp",
         "type": {
-          "type": "string",
+          "type": "long",
           "logicalType": "timestamp-millis"
         }
       },
