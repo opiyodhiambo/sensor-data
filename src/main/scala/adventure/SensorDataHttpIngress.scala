@@ -17,4 +17,4 @@ class SensorDataHttpIngress extends AkkaServerStreamlet {
   override def createLogic(): AkkaStreamletLogic =
     HttpServerLogic.default(this, out)
 
-}
+
