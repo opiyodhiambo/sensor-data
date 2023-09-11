@@ -8,7 +8,7 @@ import cloudflow.streamlets.avro._
 class SensorDataMetrics extends AkkaStreamlet {
   val in: CodecOutlet[SensorData] = AvroInlet[SensorData]("in")
   val out: CodecOutlet[Metric] = AvroInlet[Metric]("out").withPartitioner(RoundRobinPartitioner)
-  override def shape(): StreamletShape = 
+  override def shape(): StreamletShape = StreamletShape(in, out)
 
   def flow = ???
   override protected def createLogic(): AkkaStreamletLogic = {
