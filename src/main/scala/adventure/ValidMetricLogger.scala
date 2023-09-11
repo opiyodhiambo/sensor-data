@@ -4,9 +4,12 @@ import cloudflow.akkastream.AkkaStreamlet
 import cloudflow.streamlets.StreamletShape
 import cloudflow.streamlets.ConfigParameter
 import cloudflow.akkastream.AkkaStreamletLogic
+import cloudflow.streamlets.CodecInlet
 
 class ValidMetricLogger extends AkkaStreamlet {
-  val inlet = ???
+  // Defining the inlet  
+  val inlet: CodecInlet[Metric] = AvroInlet[Metric]("in")
+  // Defining the shalep of the streamlet
   override val shape: StreamletShape = StreamletShape.withInlets(inlet)
 
   val logLevel = ???
