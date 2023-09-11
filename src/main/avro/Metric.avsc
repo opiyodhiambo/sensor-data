@@ -1,29 +1,24 @@
 {
-  "namespace": "sensordata",
-  "type": "record",
-  "name": "Metric",
-  "fields": [
-      {
-        "name": "deviceId",
-        "type": {
-          "type": "string",
-          "logicalType": "uuid"
-        }
-      },
-      {
-        "name": "timestamp",
-        "type": {
-          "type": "long",
-          "logicalType": "timestamp-millis"
-        }
-      },
-      {
-        "name": "name",
-        "type": "string"
-      },
-      {
-        "name": "string",
-        "value": "double"
-      }
-  ]
+    "namespace": "sensordata",
+    "type": "record",
+    "name": "SensorData",
+    "fields":[
+         {
+            "name": "deviceId",
+            "type": {
+                "type": "string",
+                "logicalType": "uuid"
+            }
+         },
+         {
+            "name": "timestamp",
+            "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+            }
+         },
+         {
+            "name": "measurements", "type": "sensordata.Measurements"
+         }
+    ]
 }
