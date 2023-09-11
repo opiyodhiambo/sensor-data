@@ -10,7 +10,17 @@ class SensorDataMetrics extends AkkaStreamlet {
   val out: CodecOutlet[Metric] = AvroInlet[Metric]("out").withPartitioner(RoundRobinPartitioner)
   override def shape(): StreamletShape = StreamletShape(in, out)
 
-  def flow = ???
+  def flow = {
+    FlowWithCommittableContext[SensorData]
+      .mapConcat{ data =>
+        List(
+          Metric(data.deviceId, data.timestamp, "Power", data.measurements.power),
+          Metric(data.deviceId, data.timestamp, "RotorSpeed", data.measurements.rotorSpeed),
+          Metric(data.deviceId, data.timestamp, "WindSpeed", data.measurements.windspeed)
+          )
+      
+    }
+  }
   override protected def createLogic(): AkkaStreamletLogic = {
     override def runnableGraph[_] = ???
   }
