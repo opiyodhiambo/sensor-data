@@ -26,7 +26,7 @@ class ValidMetricLogger extends AkkaStreamlet {
     Some("valid-logger")
     )
 
-  override def configParameters: IndexedSeq[ConfigParameter] = ???
+  override def configParameters: IndexedSeq[ConfigParameter] = Vector(logLevel, msgPrefix)
 
   val logF: String = ???
   val msgPrefix = ???
