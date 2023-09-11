@@ -9,7 +9,7 @@ lazy val sensorData = (project in file("."))
     scalaVersion := "2.13.6",
     runLocalConfigFile := Some("src/main/resources/local.conf"),
     runLocalLog4jConfigFile := Some("src/main/resources/log4j.xml"),
-    name := "sensor-data",
+    name := "sensordata",
 
     libraryDependencies ++= Seq(
       Cloudflow.library.CloudflowAvro,
